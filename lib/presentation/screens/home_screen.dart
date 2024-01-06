@@ -33,38 +33,40 @@ class HomeScreen extends StatelessWidget {
             return const LoadingWidget();
           } else if (state is FactLoadedState) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.network(
-                    "https://cataas.com/cat",
-                    fit: BoxFit.contain,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
-                    child: Text(state.fact.text,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: Text(
-                      "Creation Date: ${_formatDate(state.fact.createdAt)}",
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.network(
+                      "https://cataas.com/cat",
+                      fit: BoxFit.contain,
                     ),
-                  ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
+                      child: Text(state.fact.text,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Text(
+                        "Creation Date: ${_formatDate(state.fact.createdAt)}",
                       ),
-                      onPressed: () {
-                        BlocProvider.of<FactBloc>(context).add(FetchFactEvent());
-                      },
-                      child: const Text("New Fact",style: TextStyle(color: Colors.white),)),
-                ],
+                    ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<FactBloc>(context).add(FetchFactEvent());
+                        },
+                        child: const Text("New Fact",style: TextStyle(color: Colors.white),)),
+                  ],
+                ),
               ),
             );
           } else if (state is FactErrorState) {
